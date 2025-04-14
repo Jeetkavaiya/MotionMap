@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Exercises - MotionMap</title>
+  <link rel="icon" href="{{ url_for('static', filename='images/icons8-cube-32.png') }}" type="image/x-icon">
+  <!-- Link to existing CSS -->
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /*
+      Make sure the page and body fill full height, and use flex to keep
+      the footer at the bottom if content is short.
+    */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    .main-content {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVIGATION (Same as in index.html) ========== -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <img src="images/icons8-cube-32.png" alt="Logo Icon" class="navbar-icon" />
+      <a href="index.html" class="logo">MotionMap</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="ai-exercises.html">Exercises</a></li>
+      <li><a href="#" class="btn-nav">Book Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main content container to push footer to bottom -->
+  <div class="main-content">
+    <!-- ========== AI EXERCISES SECTION ========== -->
+    <section class="ai-exercises-section">
+      <div class="ai-exercises-container">
+        <h1>AI-Powered Exercise Plan</h1>
+        <p>
+          Enter your details below, and our AI system will create a personalized multi-week
+          plan to help you reach your rehabilitation or fitness goals.
+        </p>
+
+        <!-- User Input Form -->
+        <form id="aiForm" class="ai-form">
+          <div class="form-field">
+            <label for="userGoal">Primary Goal:</label>
+            <input
+              type="text"
+              id="userGoal"
+              name="userGoal"
+              placeholder="e.g. Recover from knee surgery"
+              required
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="injuryDetails">Injury Details (if any):</label>
+            <input
+              type="text"
+              id="injuryDetails"
+              name="injuryDetails"
+              placeholder="e.g. Torn ACL"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="painLevel">Current Pain Level (1-10):</label>
+            <input
+              type="number"
+              id="painLevel"
+              name="painLevel"
+              min="1"
+              max="10"
+              placeholder="5"
+              required
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="timeCommitment">Time Commitment (minutes/day):</label>
+            <input
+              type="number"
+              id="timeCommitment"
+              name="timeCommitment"
+              placeholder="30"
+              required
+            />
+          </div>
+
+          <!-- Full-width button row -->
+          <div class="form-field full-width">
+            <button type="submit" class="cta-button">Generate Plan</button>
+          </div>
+        </form>
+
+        <!-- AI Plan Output -->
+        <div id="planOutput" class="plan-output"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ========== FOOTER (Same as in index.html) ========== -->
+  <footer class="footer">
+    <div class="footer-left">
+      <p>© 2025 MotionMap, Inc. All rights reserved.</p>
+    </div>
+    <div class="footer-middle">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="ai-exercises.html">Exercises</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-resources">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="faq.html">FAQs</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+      </ul>
+    </div>
+    <div class="footer-connect">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="https://www.instagram.com/jeet_kavaiya_25?igsh=MW5xMXFuM3AxcjEwOQ==">Instagram</a></li>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="https://www.linkedin.com/in/jeet-kavaiya-8619a5244?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">LinkedIn</a></li>
+      </ul>
+    </div>
+    <button id="scrollToTop" class="scroll-to-top"></button>
+  </footer>
+
+  <!-- ========== SCRIPT SECTION ========== -->
+  <script>
+    // Listen for form submission
+    document.addEventListener('DOMContentLoaded', () => {
+      const aiForm = document.getElementById('aiForm');
+      const planOutput = document.getElementById('planOutput');
+
+      aiForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        // 1. Gather user inputs
+        const userGoal = document.getElementById('userGoal').value.trim();
+        const injuryDetails = document.getElementById('injuryDetails').value.trim();
+        const painLevel = document.getElementById('painLevel').value.trim();
+        const timeCommitment = document.getElementById('timeCommitment').value.trim();
+
+        // 2. (Mock) Send data to AI or ML endpoint
+        // In a real scenario, you'd do something like:
+        //    const response = await fetch('/api/generate-plan', {
+        //      method: 'POST',
+        //      headers: { 'Content-Type': 'application/json' },
+        //      body: JSON.stringify({ userGoal, injuryDetails, painLevel, timeCommitment })
+        //    });
+        //    const planData = await response.json();
+        // Here, we simulate a response:
+        const planData = generateMockPlan(userGoal, injuryDetails, painLevel, timeCommitment);
+
+        // 3. Display plan to user
+        planOutput.innerHTML = createPlanHTML(planData);
+      });
+
+      // Mock function simulating AI generation
+      function generateMockPlan(goal, injury, pain, time) {
+        // Basic example: 4 weeks, each with recommended exercises
+        return {
+          goal,
+          injury,
+          pain,
+          time,
+          weeks: [
+            {
+              week: 1,
+              exercises: [
+                "Light stretching (5 minutes)",
+                "Low-impact cardio (10 minutes)",
+                "Strengthening exercise (10 minutes)",
+                "Cool-down / icing (5 minutes)"
+              ]
+            },
+            {
+              week: 2,
+              exercises: [
+                "Moderate stretching (5 minutes)",
+                "Low-impact cardio (15 minutes)",
+                "Strengthening exercise (10 minutes)",
+                "Balance exercises (5 minutes)"
+              ]
+            },
+            {
+              week: 3,
+              exercises: [
+                "Extended stretching (5 minutes)",
+                "Moderate-impact cardio (20 minutes)",
+                "Advanced strengthening exercise (10 minutes)",
+                "Cool-down / compression (5 minutes)"
+              ]
+            },
+            {
+              week: 4,
+              exercises: [
+                "Dynamic stretching (5 minutes)",
+                "Moderate-impact cardio (25 minutes)",
+                "Advanced strengthening exercise (15 minutes)",
+                "Cool-down / self-massage (5 minutes)"
+              ]
+            }
+          ]
+        };
+      }
+
+      // Helper function to generate HTML for the plan
+      function createPlanHTML(plan) {
+        let html = `
+          <h2>Your Customized Plan</h2>
+          <p><strong>Goal:</strong> ${plan.goal}</p>
+          <p><strong>Injury Details:</strong> ${plan.injury || "None"}</p>
+          <p><strong>Pain Level:</strong> ${plan.pain}</p>
+          <p><strong>Time Commitment:</strong> ${plan.time} min/day</p>
+          <h3>Weekly Breakdown:</h3>
+        `;
+        plan.weeks.forEach((weekObj) => {
+          html += `
+            <div class="week-plan">
+              <h4>Week ${weekObj.week}</h4>
+              <ul>
+                ${weekObj.exercises.map(ex => `<li>${ex}</li>`).join('')}
+              </ul>
+            </div>
+          `;
+        });
+        return html;
+      }
+    });
+  </script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

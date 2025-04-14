@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MotionMap | Consultation</title>
+  <link rel="icon" href="{{ url_for('static', filename='images/icons8-cube-32.png') }}" type="image/x-icon">
+  <!-- Link to your existing CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <style>
+    /* Additional styling for the consultation page */
+    .consultation-section {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .consultation-section h2 {
+      font-size: 3.5rem;
+      color: #F4D35E;
+      margin-bottom: 1rem;
+    }
+
+    .consultation-section p {
+      max-width: 800px;
+      margin: 0.5rem auto 2rem;
+      line-height: 1.6;
+      font-size: 1.3rem;
+    }
+
+    /* Physiotherapists / clinics listing */
+    .physio-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0 2rem 2rem;
+    }
+
+    .physio-card {
+      background-color: #13253A;
+      border-radius: 6px;
+      padding: 1.5rem;
+      max-width: 300px;
+      text-align: left;
+      color: #fff;
+    }
+
+    .physio-card h4 {
+      margin-bottom: 0.5rem;
+      color: #F4D35E;
+    }
+
+    /* Schedule form */
+    .schedule-form {
+      max-width: 500px;
+      margin: 2rem auto;
+      text-align: left;
+      background-color: #13253A;
+      padding: 1.5rem;
+      border-radius: 6px;
+    }
+
+    .schedule-form h3 {
+      color: #F4D35E;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .schedule-form label {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .schedule-form input[type="text"],
+    .schedule-form input[type="email"],
+    .schedule-form input[type="date"],
+    .schedule-form input[type="time"] {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1.1rem;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    .schedule-form button {
+      display: block;
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      font-size: 1.1rem;
+      background-color: #F4D35E;
+      color: #162641;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .schedule-form button:hover {
+      background-color: #e1be52;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVIGATION (same as home page) -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <img src="{{ url_for('static', filename='images/icons8-cube-32.png') }}" alt="Logo Icon" class="navbar-icon" />
+      <a href="index.html" class="logo">MotionMap</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('home') }}">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="{{ url_for('contact_page') }}">Contact Us</a></li>
+      <li><a href="{{ url_for('consultation_page') }}" class="btn-nav">Book Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN SECTION: Consultation Info -->
+  <section class="consultation-section">
+    <h2>Schedule a Consultation</h2>
+    <p>
+      At MotionMap, we believe every journey to recovery is unique. Our team of experienced
+      physiotherapists is ready to work with you to develop a plan tailored to your needs.
+      Below, you’ll find some of our specialists and clinics to help you get started.
+    </p>
+  </section>
+
+  <!-- Physiotherapists / Clinics List -->
+  <section class="physio-list">
+    <!-- Card 1 -->
+    <div class="physio-card">
+      <h4>Dr. John Smith, PT</h4>
+      <p><strong>Clinic:</strong> Midtown Health Clinic</p>
+      <p><strong>Address:</strong> 123 Health Street, New York, NY 10001</p>
+      <p><strong>Phone:</strong> (555) 123-4567</p>
+      <p><strong>Email:</strong> johnsmith@midtownclinic.com</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="physio-card">
+      <h4>Dr. Emily Brown, PT</h4>
+      <p><strong>Clinic:</strong> Riverside Physiotherapy</p>
+      <p><strong>Address:</strong> 456 River Road, Chicago, IL 60601</p>
+      <p><strong>Phone:</strong> (555) 987-6543</p>
+      <p><strong>Email:</strong> emilybrown@riverside.com</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="physio-card">
+      <h4>Dr. Mark Davis, PT</h4>
+      <p><strong>Clinic:</strong> Westside Rehab Center</p>
+      <p><strong>Address:</strong> 789 Wellness Ave, Los Angeles, CA 90001</p>
+      <p><strong>Phone:</strong> (555) 555-1212</p>
+      <p><strong>Email:</strong> markdavis@westside.com</p>
+    </div>
+  </section>
+
+  <!-- Schedule Form -->
+  <section class="schedule-form">
+    <h3>Request an Appointment</h3>
+    <form action="#" method="POST">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" placeholder="John Doe" required>
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" placeholder="johndoe@example.com" required>
+
+      <label for="preferredDate">Preferred Date:</label>
+      <input type="date" id="preferredDate" name="preferredDate" required>
+
+      <label for="preferredTime">Preferred Time:</label>
+      <input type="time" id="preferredTime" name="preferredTime" required>
+
+      <button type="submit">Submit</button>
+    </form>
+  </section>
+
+  <!-- FOOTER (same as home page) -->
+  <footer class="footer">
+    <div class="footer-left">
+      <p>© 2025 MotionMap, Inc. All rights reserved.</p>
+    </div>
+    <div class="footer-middle">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Exercises</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-resources">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="{{ url_for('faq_page') }}">FAQs</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+      </ul>
+    </div>
+    <div class="footer-connect">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="https://www.instagram.com/jeet_kavaiya_25?igsh=MW5xMXFuM3AxcjEwOQ==">Instagram</a></li>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="https://www.linkedin.com/in/jeet-kavaiya-8619a5244?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">LinkedIn</a></li>
+      </ul>
+    </div>
+    <button id="scrollToTop" class="scroll-to-top"></button>
+  </footer>
+
+  <!-- Link to your existing script.js if needed -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
