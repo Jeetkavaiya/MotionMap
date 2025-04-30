@@ -28,7 +28,7 @@ def init_db():
 
     # Load data into exercises table if empty
     cursor.execute("SELECT COUNT(*) FROM exercises")
-    if cursor.fetchone()[0] == 0 and os.path.exists('Condition_to_Exercises.csv'):
+    if cursor.fetchone()[0] == 0 and os.path.exists("Condition_to_Exercises.csv"):
         with open('Condition_to_Exercises.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             # Expecting CSV with headers: condition, exercise
@@ -37,7 +37,7 @@ def init_db():
     
     # Load data into symptoms table if empty
     cursor.execute("SELECT COUNT(*) FROM symptoms")
-    if cursor.fetchone()[0] == 0 and os.path.exists('Symptoms_to_Condition.csv'):
+    if cursor.fetchone()[0] == 0 and os.path.exists("Symptoms_to_Condition.csv"):
         with open('Symptoms_to_Condition.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             # Expecting CSV with headers: symptom, condition
